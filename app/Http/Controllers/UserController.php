@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
+use App\DataTables\UsersDataTable;
 
 class UserController extends Controller
 {
@@ -30,12 +31,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(UsersDataTable $dataTable)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
+        // $data = User::orderBy('id','DESC')->paginate(5);
+        return $dataTable->render('webadmin.users.index');
         // dd($data);
-        return view('users.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        // return view('webadmin.users.index',compact('data'))
+        //     ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -46,7 +48,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        return view('webadmin.users.create',compact('roles'));
     }
 
     /**
@@ -70,7 +72,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
+        return redirect()->route('webadmin.users.index')
                         ->with('success','User created successfully');
     }
 
@@ -83,8 +85,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        dd($user);
-        return view('users.show',compact('user'));
+        return view('webadmin.users.show',compact('user'));
     }
 
     /**
@@ -99,7 +100,7 @@ class UserController extends Controller
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('webadmin.users.edit',compact('user','roles','userRole'));
     }
 
     /**
@@ -131,7 +132,7 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
+        return redirect()->route('webadmin.users.index')
                         ->with('success','User updated successfully');
     }
 
@@ -144,7 +145,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
+        return redirect()->route('webadmin.users.index')
                         ->with('success','User deleted successfully');
     }
 }

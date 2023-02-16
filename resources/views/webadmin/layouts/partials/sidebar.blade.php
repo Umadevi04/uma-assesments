@@ -120,6 +120,30 @@
                   </li>
 
                   <li class="nav-item">
+                    <a href="{{ route('webadmin.categories.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Categories
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('webadmin.categories.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Index</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('webadmin.categories.create') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                  <li class="nav-item">
                       <a class="nav-link" href="{{ route('webadmin.logout') }}"
                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                           <i class="nav-icon fas fa-table"></i>
