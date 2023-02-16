@@ -74,7 +74,15 @@ class UsersDataTable extends BaseDataTable
      */
     protected function getColumns()
     {
-       return $columns = ['name', 'email', 'roles'];
+    //    return $columns = ['name', 'email', 'roles'];
+       return [
+        Column::make('name')
+                ->width(200),
+        Column::make('email')
+                ->width(250),
+        Column::make('roles')
+                ->width(180),
+    ];
     }
 
     /**
