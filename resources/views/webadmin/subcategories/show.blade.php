@@ -7,7 +7,7 @@
                 <div class="col-md-6">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Show Categories</h3>
+                            <h3 class="card-title">Show Sub-Categories</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -15,11 +15,11 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Name:</strong>
-                                        {{ $category->name }}
+                                        {{ $subcategory->name }}
                                     </div>
                                 </div>
                                 <div class="pull-right">
-                                    <a class="btn btn-sm btn-success" href="{{ route('webadmin.categories.index') }}">
+                                    <a class="btn btn-sm btn-success" href="{{ route('webadmin.subcategories.index') }}">
                                         Back</a>
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+// namespace App\Http\Controllers\Admin;
 namespace App\Http\Controllers;
 
 // use App\Http\Controllers\Controller;
@@ -43,7 +43,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {        
         return view('webadmin.categories.create');
     }
 
@@ -55,6 +55,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // dd('hi');
         $this->validate($request, [
             'name' => 'required',            
         ]);
@@ -71,9 +72,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        return view('webadmin.categories.show',compact('product'));
+        return view('webadmin.categories.show',compact('category'));
     }
 
     /**
@@ -82,9 +83,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        return view('webadmin.products.edit',compact('product'));
+        return view('webadmin.categories.edit',compact('category'));
     }
 
     /**
@@ -102,8 +103,8 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        return redirect()->route('webadmin.users.index')
-                        ->with('success','User updated successfully');
+        return redirect()->route('webadmin.categories.index')
+                        ->with('success','Category updated successfully');
     }
 
     /**

@@ -4,25 +4,25 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
+                    <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Edit Category</h3>
+                            <h3 class="card-title">Create Sub-Category</h3>
                         </div>
                         <div class="card-body">
-                            {!! Form::model($category, ['method' => 'PATCH', 'route' => ['webadmin.categories.update', $category->id]]) !!}
-
+                            {!! Form::open(['route' => 'webadmin.subcategories.store', 'method' => 'POST']) !!}
                             <div class="form-group">
                                 <label for="exampleInputName">Name</label>
                                 {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control', 'id' => 'exampleInputName']) !!}
-                            </div>                            
-                            
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>&nbsp;
-                                <a class="btn btn-sm btn-success" href="{{ route('webadmin.categories.index') }}"> Back</a>
-                            </div>
+                            </div>                      
+                           
                         </div>
-                        {!! Form::close() !!}
                     </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-primary">Submit</button> &nbsp;
+                        <a class="btn btn-sm btn-success" href="{{ route('webadmin.subcategories.index') }}"> Back</a>
+                    </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

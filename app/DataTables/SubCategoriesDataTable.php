@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -11,9 +11,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-// use Yajra\Datatables\Facades\Datatables;
 
-class CategoriesDataTable extends BaseDataTable
+class SubCategoriesDataTable extends BaseDataTable
 {
     /**
      * Build DataTable class.
@@ -29,21 +28,24 @@ class CategoriesDataTable extends BaseDataTable
                    return $model->name;
             })
             ->addColumn('action', function ($model) {
-                $action = '<a href="' . route('webadmin.categories.show', $model->id) . '" class="btn btn-primary btn-sm" title="Show"><i class="fa fa-eye text-white"></i></a>&nbsp;';
-                $action .= '<a href="' . route('webadmin.categories.edit', $model->id) . '" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit text-white"></i></a>&nbsp;';
-                    $action .= ' <a href="webadmin.categories.index" class="btn btn-danger btn-sm btndelete" data-id="' . $model->id . '" data-model="users" data-route="webadmin" data-loading-text="<i class=\'fa fa-spin fa-spinner\'></i> Please Wait..." title="Delete"><i class="fa fa-trash text-white"></i></a>';
+                $action = '<a href="' . route('webadmin.subcategories.show', $model->id) . '" class="btn btn-primary btn-sm" title="Show"><i class="fa fa-eye text-white"></i></a>&nbsp;';
+                $action .= '<a href="' . route('webadmin.subcategories.edit', $model->id) . '" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit text-white"></i></a>&nbsp;';
+                    $action .= ' <a href="webadmin.subcategories.index" class="btn btn-danger btn-sm btndelete" data-id="' . $model->id . '" data-model="users" data-route="webadmin" data-loading-text="<i class=\'fa fa-spin fa-spinner\'></i> Please Wait..." title="Delete"><i class="fa fa-trash text-white"></i></a>';
                 return $action;
             })
             ->rawColumns(['action']);       
+        // return (new EloquentDataTable($query))
+        //     ->addColumn('action', 'subcategories.action')
+        //     ->setRowId('id');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Category $model
+     * @param \App\Models\SubCategory $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Category $model)
+    public function query(SubCategory $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -72,13 +74,24 @@ class CategoriesDataTable extends BaseDataTable
      *
      * @return array
      */
-    public function getColumns()
+    public function getColumns(): array
     {
-            return [
+        return [
             Column::make('name')
                     ->width(700), 
                
-        ];       
+        ];     
+        // return [
+        //     Column::computed('action')
+        //           ->exportable(false)
+        //           ->printable(false)
+        //           ->width(60)
+        //           ->addClass('text-center'),
+        //     Column::make('id'),
+        //     Column::make('add your columns'),
+        //     Column::make('created_at'),
+        //     Column::make('updated_at'),
+        // ];
     }
 
     /**
@@ -88,6 +101,6 @@ class CategoriesDataTable extends BaseDataTable
      */
     protected function filename(): string
     {
-        return 'Categories_' . date('YmdHis');
+        return 'SubCategories_' . date('YmdHis');
     }
 }

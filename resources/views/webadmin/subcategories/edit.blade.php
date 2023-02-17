@@ -6,10 +6,10 @@
                 <div class="col-md-6">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Edit Category</h3>
+                            <h3 class="card-title">Edit Sub-Category</h3>
                         </div>
                         <div class="card-body">
-                            {!! Form::model($category, ['method' => 'PATCH', 'route' => ['webadmin.categories.update', $category->id]]) !!}
+                            {!! Form::model($subcategory, ['method' => 'PATCH', 'route' => ['webadmin.subcategories.update', $subcategory->id]]) !!}
 
                             <div class="form-group">
                                 <label for="exampleInputName">Name</label>
@@ -18,7 +18,7 @@
                             
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>&nbsp;
-                                <a class="btn btn-sm btn-success" href="{{ route('webadmin.categories.index') }}"> Back</a>
+                                <a class="btn btn-sm btn-success" href="{{ route('webadmin.subcategories.index') }}"> Back</a>
                             </div>
                         </div>
                         {!! Form::close() !!}
