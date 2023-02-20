@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
 use App\DataTables\SubCategoriesDataTable;
+use App\Models\Category;
+
 class SubCategoryController extends Controller
 {
       /**
@@ -38,8 +40,9 @@ class SubCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {        
-        return view('webadmin.subcategories.create');
+    {    
+        $categories=Category::all();    
+        return view('webadmin.subcategories.create',compact('categories'));
     }
 
     /**
@@ -54,13 +57,12 @@ class SubCategoryController extends Controller
         $this->validate($request, [
             'name' => 'required',            
         ]);
-
+ //dd($request);
         $subcategory              = new SubCategory();
         $subcategory->category_id = $request->category_id;
         $subcategory->name        = $request->name;         
-        $subcategory->save();       
-    //    SubCategory::create($request->all());
-
+        $subcategory->save();  
+      
         return redirect()->route('webadmin.subcategories.index')
                         ->with('success','SubCategory created successfully.');
     }
@@ -73,7 +75,7 @@ class SubCategoryController extends Controller
      */
     public function show(SubCategory $subcategory)
     {
-        return view('webadmin.categories.show',compact('category'));
+        return view('webadmin.subcategories.show',compact('subcategory'));
     }
 
     /**
@@ -82,9 +84,12 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(SubCategory $subcategory)
-    {
-        return view('webadmin.categories.edit',compact('category'));
+    public function edit(Request $request, $id)
+    {             
+        $categories=Category::all(); 
+        $subcategory = SubCategory::find($id);
+         $subcategory['category']=Category::all();
+         return view('webadmin.subcategories.edit',compact('subcategory','categories'));
     }
 
     /**
@@ -94,16 +99,17 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubCategory $subcategory,$id)
+    public function update(Request $request,$id)
     {
+        // dd($request);
         $this->validate($request, [
             'name' => 'required',            
         ]);
-
-        // $subcategory->update($request->all());
+        $subcategory              = new SubCategory();
+        $subcategory->update($request->all());
         $subcategory = SubCategory::find($id);
         $input        = $request->all();        
-        $subcategory->update($input);
+        $subcategory->update($input);      
 
         return redirect()->route('webadmin.subcategories.index')
                         ->with('success','SubCategory updated successfully');

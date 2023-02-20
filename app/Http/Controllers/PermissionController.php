@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
+use App\DataTables\PermissionsDataTable;
 
 use Illuminate\Http\Request;
 
@@ -24,11 +29,9 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PermissionsDataTable $dataTable)
     {
-        $permissions = permission::latest()->paginate(5);
-        return view('webadmin.permissions.index',compact('permissions'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return $dataTable->render('webadmin.permissions.index');          
     }
 
     /**

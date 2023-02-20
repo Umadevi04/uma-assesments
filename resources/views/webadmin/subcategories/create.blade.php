@@ -14,15 +14,26 @@
                             <div class="form-group">
                                 <label for="exampleInputName">Name</label>
                                 {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control', 'id' => 'exampleInputName']) !!}
-                            </div>                      
-                           
+                            </div>
+                            <div class="form-group">
+                                <label>Select Category</label>
+                                <select name="category_id" class="form-control">
+                                    @foreach ($categories as $key => $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                                {{-- {!! Form::select('category_id', $categories, [], ['class' => 'form-control', 'single']) !!} --}}
+                            </div>
+
                         </div>
+                        {{-- </div> --}}
+                        {{-- </div> --}}
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm btn-primary">Submit</button> &nbsp;
+                            <a class="btn btn-sm btn-success" href="{{ route('webadmin.subcategories.index') }}"> Back</a>
+                        </div>
+                        {!! Form::close() !!}
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-sm btn-primary">Submit</button> &nbsp;
-                        <a class="btn btn-sm btn-success" href="{{ route('webadmin.subcategories.index') }}"> Back</a>
-                    </div>
-                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

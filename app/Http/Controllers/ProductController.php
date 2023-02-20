@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\SubCategory;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
+use App\DataTables\ProductsDataTable;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -24,11 +32,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ProductsDataTable $dataTable)
     {
-        $products = Product::latest()->paginate(5);
-        return view('webadmin.products.index',compact('products'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return $dataTable->render('webadmin.products.index');       
     }
 
     /**

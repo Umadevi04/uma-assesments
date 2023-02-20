@@ -14,16 +14,11 @@
                             <div class="form-group">
                                 <label for="exampleInputName">Name</label>
                                 {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control', 'id' => 'exampleInputName']) !!}
-                            </div>
+                            </div>                      
                             <div class="form-group">
-                                <label for="exampleInputDetail">Detail</label>
-                                {!! Form::textarea('detail', null, [
-                                    'placeholder' => 'Detail',
-                                    'class' => 'form-control',
-                                    'id' => 'exampleInputDetail',
-                                ]) !!}
-                            </div>
-
+                                <label for="exampleInputName">Detail</label>
+                                {!! Form::text('detail', null, ['placeholder' => 'Detail', 'class' => 'form-control', 'id' => 'exampleInputDetail']) !!}
+                            </div>    
                         </div>
                     </div>
                     <div class="card-footer">
