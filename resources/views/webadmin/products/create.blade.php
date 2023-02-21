@@ -18,7 +18,23 @@
                             <div class="form-group">
                                 <label for="exampleInputName">Detail</label>
                                 {!! Form::text('detail', null, ['placeholder' => 'Detail', 'class' => 'form-control', 'id' => 'exampleInputDetail']) !!}
-                            </div>    
+                            </div> 
+                            <div class="form-group">
+                                <label>Select Category</label>
+                                <select name="category_id" class="form-control">
+                                    @foreach ($categories as $key => $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>                               
+                            </div>
+                            <div class="form-group">
+                                <label>Select Sub-Category</label>
+                                <select name="sub-category_id" class="form-control">
+                                    @foreach ($subcategories as $key => $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>                               
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer">

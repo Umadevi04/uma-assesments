@@ -44,7 +44,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('webadmin.products.create');
+        $categories=Category::all(); 
+        $subcategories=SubCategory::all();       
+        return view('webadmin.products.create',compact('categories','subcategories'));
     }
 
     /**
@@ -57,10 +59,16 @@ class ProductController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'detail' => 'required',
+            'detail' => 'required',            
         ]);
+        $product           = new Product();
+        $product->category_id = $request->category_id;
+        $product->sub_category_id = $request->sub_category_id;
+        $product->name        = $request->name; 
+        $product->detail       = $request->detail;           
+        $product->save();  
 
-        Product::create($request->all());
+        // Product::create($request->all());
 
         return redirect()->route('webadmin.products.index')
                         ->with('success','Product created successfully.');
@@ -83,9 +91,14 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Request $request,$id)
     {
-        return view('webadmin.products.edit',compact('product'));
+        $categories=Category::all(); 
+        $subcategories=SubCategory::all(); 
+        $product = Product::find($id);
+         $product['category']=Category::all();
+         $product['subcategory']=SubCategory::all();
+        return view('webadmin.products.edit',compact('product','categories','subcategories'));
     }
 
     /**
@@ -95,14 +108,20 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request,$id)
     {
          request()->validate([
             'name' => 'required',
             'detail' => 'required',
         ]);
 
+        // $product->update($request->all());
+        $product              = new Product();
         $product->update($request->all());
+        $product = Product::find($id);
+        $input        = $request->all();        
+        $product->update($input);      
+
 
         return redirect()->route('webadmin.products.index')
                         ->with('success','Product updated successfully');

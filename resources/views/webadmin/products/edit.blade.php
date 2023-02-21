@@ -22,7 +22,33 @@
                                     'class' => 'form-control',
                                     'id' => 'exampleInputDetail1',
                                 ]) !!}
-                            </div>                           
+                            </div>  
+                            <div class="form-group">
+                                <label>Select Category</label>
+                                <select name="category_id" class="form-control">
+                                    @foreach ($categories as $key => $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ $item->id == $product->category_id ? 'selected' : '' }}>
+                                            {{ $item->name }}
+                                            {{ $item->detail }}
+                                            
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>  
+                            <div class="form-group">
+                                <label>Select SubCategory</label>
+                                <select name="sub_category_id" class="form-control">
+                                    @foreach ($subcategories as $key => $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ $item->id == $product->sub_category_id ? 'selected' : '' }}>
+                                            {{ $item->name }}
+                                            {{ $item->detail }}
+                                        </option>
+                                    @endforeach
+
+                                </select>
+                            </div>                       
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>&nbsp;
                                 <a class="btn btn-sm btn-success" href="{{ route('webadmin.products.index') }}"> Back</a>

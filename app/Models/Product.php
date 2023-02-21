@@ -15,12 +15,26 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'detail'
-    ];  
+        'name', 'detail','category_id','sub_category_id',
+    ];     
+
     public function subcategories()
     {
         return $this->belongsTo(SubCategory::class);
-    }   
+    }
+    
+    // public function categories(): HasManyThrough
+    // {
+    //     return $this->hasManyThrough(Category::class, SubCategory::class);
+    // }
+    public function categories()
+    {
+    return $this->hasManyThrough(
+        Category::class,
+        Subcategory::class,
+        'category_id',
+    );
+    }
 
 }
 

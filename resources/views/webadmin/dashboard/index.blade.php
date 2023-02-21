@@ -93,46 +93,46 @@
                 </div>
                 <!-- ./col -->
             </div>
-            <!-- /.row -->
-            {{-- <div class="row">
+             <!-- /.row -->
+              <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-primary">
                         <div class="inner">
-                            <h3>{{ $data['categories'] }}</h3>
-
+                            {{-- {{dd($data['categories'])}} --}}
+                            {{-- <h3>{{ $data['categories'] }}</h3> --}}
                             <p>Categories</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person-add"></i>
+                            <i class="ion ion-pie-graph"></i>
                         </div>
                         <a href="{{ route('webadmin.categories.index') }}" class="small-box-footer">More info <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
+                </div> 
 
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>{{ $data['sub_categories'] }}</h3>
+                            {{-- <h3>{{ $data['sub_categories'] }}</h3> --}}
 
                             <p>Sub-Categories</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person-add"></i>
+                            <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="{{ route('webadmin.categories.index') }}" class="small-box-footer">More info <i
+                        <a href="{{ route('webadmin.subcategories.index') }}" class="small-box-footer">More info <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-            </div> --}}
+            </div> 
 
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
+<!-- /.content-wrapper --> 
 @endsection
 
 @push('js')
