@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,7 +53,7 @@ Route::group(['prefix' => 'webadmin'], function () {
         Route::post('register', [RegisterController::class,'register'])->name('create');
 
         Route::middleware('auth')->group(function () {
-             Route::get('logout', [LoginController::class,'logout'])->name('logout');
+             //Route::get('logout', [LoginController::class,'logout'])->name('logout');
 
              Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
 
@@ -64,7 +65,7 @@ Route::group(['prefix' => 'webadmin'], function () {
             Route::resource('products', ProductController::class);
             Route::resource('permissions', PermissionController::class);
             Route::resource('categories', CategoryController::class);
-            Route::resource('subcategories',SubCategoryController::class);
+            Route::resource('subcategories', SubCategoryController::class);
         });
     });
 });

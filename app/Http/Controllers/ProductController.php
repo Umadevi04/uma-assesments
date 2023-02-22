@@ -57,13 +57,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         request()->validate([
             'name' => 'required',
             'detail' => 'required',            
         ]);
         $product           = new Product();
         $product->category_id = $request->category_id;
-        $product->sub_category_id = $request->sub_category_id;
+        $product->sub_category_id = $request->subcategory_id;
         $product->name        = $request->name; 
         $product->detail       = $request->detail;           
         $product->save();  

@@ -100,7 +100,7 @@
                     <div class="small-box bg-primary">
                         <div class="inner">
                             {{-- {{dd($data['categories'])}} --}}
-                            {{-- <h3>{{ $data['categories'] }}</h3> --}}
+                            <h3>{{ $data['categories'] }}</h3>
                             <p>Categories</p>
                         </div>
                         <div class="icon">
@@ -115,7 +115,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            {{-- <h3>{{ $data['sub_categories'] }}</h3> --}}
+                            <h3>{{ $data['sub_categories'] }}</h3>
 
                             <p>Sub-Categories</p>
                         </div>

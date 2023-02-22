@@ -18,13 +18,13 @@
                             <div class="form-group">
                                 <label>Select Category</label>
                                 <select name="category_id" class="form-control">
+                                    <option value="">Select Category</option>
                                     @foreach ($categories as $key => $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 {{-- {!! Form::select('category_id', $categories, [], ['class' => 'form-control', 'single']) !!} --}}
                             </div>
-
                         </div>
                         {{-- </div> --}}
                         {{-- </div> --}}
