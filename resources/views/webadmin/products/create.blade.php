@@ -21,7 +21,7 @@
                             </div> 
                             <div class="form-group">
                                 <label>Select Category</label>
-                                <select name="category_id" id="category_id" class="form-control">
+                                <select name="category_id" id="category" class="form-control">
                                     <option value="">Select Category</option>
                                     @foreach ($categories as $key => $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -30,7 +30,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Select Sub-Category</label>
-                                <select name="subcategory_id" id="subcategory_id" class="form-control">
+                                <select name="subcategory_id" id="subcategory" class="form-control">
                                     <option value="">Select Sub-Category</option>
                                     {{-- @foreach ($subcategories as $key => $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -49,3 +49,4 @@
         </div>
     </div>
 @endsection
+

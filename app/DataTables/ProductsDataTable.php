@@ -27,10 +27,15 @@ class ProductsDataTable extends BaseDataTable
             // return $model->created_at->format('Y-m-d');
                return $model->name;
         })
+        ->addColumn('Category Name', function ($model) {
+            // return $model->created_at->format('Y-m-d');
+            // dd($model->category_id);
+               return $model->category_id;
+        })
         ->addColumn('action', function ($model) {
             $action = '<a href="' . route('webadmin.products.show', $model->id) . '" class="btn btn-primary btn-sm" title="Show"><i class="fa fa-eye text-white"></i></a>&nbsp;';
             $action .= '<a href="' . route('webadmin.products.edit', $model->id) . '" class="btn btn-success btn-sm" title="Edit"><i class="fa fa-edit text-white"></i></a>&nbsp;';
-                $action .= ' <a href="webadmin.products.index" class="btn btn-danger btn-sm btndelete" data-id="' . $model->id . '" data-model="users" data-route="webadmin" data-loading-text="<i class=\'fa fa-spin fa-spinner\'></i> Please Wait..." title="Delete"><i class="fa fa-trash text-white"></i></a>';
+            $action .= ' <a href="webadmin.products.index" class="btn btn-danger btn-sm btndelete" data-id="' . $model->id . '" data-model="users" data-route="webadmin" data-loading-text="<i class=\'fa fa-spin fa-spinner\'></i> Please Wait..." title="Delete"><i class="fa fa-trash text-white"></i></a>';
             return $action;
         })
         ->rawColumns(['action']);     
@@ -44,7 +49,7 @@ class ProductsDataTable extends BaseDataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->with('categories')->newQuery();
     }
 
     /**
@@ -75,9 +80,11 @@ class ProductsDataTable extends BaseDataTable
     {
         return [
             Column::make('name')
-                    ->width(350), 
+                    ->width(200), 
             Column::make('detail')
-                    ->width(250),
+                    ->width(200),
+            Column::make('Category Name')
+                    ->width(200),
                
         ];      
     }

@@ -16,7 +16,12 @@ class Product extends Model
      */
     protected $fillable = [
         'name', 'detail','category_id','sub_category_id',
-    ];     
+    ]; 
+    
+    public function categories()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function subcategories()
     {
@@ -27,7 +32,7 @@ class Product extends Model
     // {
     //     return $this->hasManyThrough(Category::class, SubCategory::class);
     // }
-    public function categories()
+    public function categoriesOLD()
     {
     return $this->hasManyThrough(
         Category::class,

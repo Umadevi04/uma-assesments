@@ -51,7 +51,6 @@ Route::group(['prefix' => 'webadmin'], function () {
         Auth::routes();
         Route::get('register', [RegisterController::class,'showRegistrationForm'])->name('register');
         Route::post('register', [RegisterController::class,'register'])->name('create');
-
         Route::middleware('auth')->group(function () {
              //Route::get('logout', [LoginController::class,'logout'])->name('logout');
 
@@ -65,7 +64,10 @@ Route::group(['prefix' => 'webadmin'], function () {
             Route::resource('products', ProductController::class);
             Route::resource('permissions', PermissionController::class);
             Route::resource('categories', CategoryController::class);
-            Route::resource('subcategories', SubCategoryController::class);
+            Route::resource('subcategories', SubCategoryController::class);       
+
         });
+        Route::post('products/get_subcat', [ProductController::class,'getsublist']);
     });
+   
 });

@@ -46,7 +46,6 @@
                                             {{ $item->detail }}
                                         </option>
                                     @endforeach
-
                                 </select>
                             </div>                       
                             <div class="card-footer">
