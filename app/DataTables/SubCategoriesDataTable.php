@@ -78,8 +78,7 @@ class SubCategoriesDataTable extends BaseDataTable
     {
         return [
             Column::make('name')
-                    ->width(700), 
-               
+                    ->width(700),               
         ];     
         // return [
         //     Column::computed('action')

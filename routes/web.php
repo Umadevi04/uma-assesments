@@ -9,12 +9,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +62,8 @@ Route::group(['prefix' => 'webadmin'], function () {
             Route::resource('products', ProductController::class);
             Route::resource('permissions', PermissionController::class);
             Route::resource('categories', CategoryController::class);
-            Route::resource('subcategories', SubCategoryController::class);       
+            Route::resource('subcategories', SubCategoryController::class); 
+            Route::resource('posts', PostController::class);        
 
         });
         Route::post('products/get_subcat', [ProductController::class,'getsublist']);

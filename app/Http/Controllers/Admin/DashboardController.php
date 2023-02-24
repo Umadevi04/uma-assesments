@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Permission;
 use App\Models\SubCategory;
+use App\Models\Post;
+
 
 class DashboardController extends Controller
 {
@@ -21,6 +23,7 @@ class DashboardController extends Controller
         $data['permissions'] = Permission::all()->count();
         $data['categories']  = Category::all()->count();
         $data['sub_categories'] = SubCategory::all()->count();
+        $data['posts']  = Post::all()->count();
         // dd($data);
         return view('webadmin.dashboard.index',compact('data'));
     }
