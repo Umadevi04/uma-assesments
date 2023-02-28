@@ -10,24 +10,45 @@
                             <h3 class="card-title">Create Post</h3>
                         </div>
                         <div class="card-body">
-                            {!! Form::open(['route' => 'webadmin.posts.store', 'method' => 'POST']) !!}
+                            {!! Form::open(['route' => 'webadmin.posts.store','method' => 'POST','enctype' => 'multipart/form-data']) !!}
                             <div class="form-group">
                                 <label for="exampleInputName"> Post Title</label>
-                                {!! Form::text('postTitle', null, ['placeholder' => 'Post Title', 'class' => 'form-control', 'id' => 'exampleInputName']) !!}
+                                {!! Form::text('postTitle', null, [
+                                    'placeholder' => 'Post Title',
+                                    'class' => 'form-control',
+                                    'id' => 'exampleInputName',
+                                ]) !!}
                             </div>
+
                             <div class="form-group">
-                                <label>Select User</label>
-                                <select name="user_id" class="form-control">
-                                    <option value="">Select User</option>
-                                    @foreach ($users as $key => $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                {{-- {!! Form::select('category_id', $categories, [], ['class' => 'form-control', 'single']) !!} --}}
+                                <label for="exampleInputImage"> Post Image </label>
+                                {!! Form::file('image', null, ['class' => 'form-control']) !!}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputDescription"> Post Description </label>
+                                {!! Form::textarea('postDescription', null, [
+                                    'placeholder' => 'Post Description',
+                                    'class' => 'form-control',
+                                    'id' => 'exampleInputDescription',
+                                ]) !!}
+                            </div>
+
+                            {{-- <div class="form-group">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Status</label>
+                                <div class="form-check form-switch ">
+                                    <input class ="form-check-input" type="checkbox" name="active"
+                                        id="flexSwitchCheckDefault" checked data-toggle="toggle" data-on="1"
+                                        data-off="0">
+                                </div>
+                            </div> --}}
+                            <div class="form-group">
+                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" name="is_commentable" class="custom-control-input" id="customSwitch3" data-on="1" data-off="0">
+                                    <label class="custom-control-label" for="customSwitch3">Is Commentable</label>
+                                </div>
                             </div>
                         </div>
-                        {{-- </div> --}}
-                        {{-- </div> --}}
                         <div class="card-footer">
                             <button type="submit" class="btn btn-sm btn-primary">Submit</button> &nbsp;
                             <a class="btn btn-sm btn-success" href="{{ route('webadmin.posts.index') }}"> Back</a>

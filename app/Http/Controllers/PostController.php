@@ -11,29 +11,30 @@ use Illuminate\Support\Arr;
 use App\DataTables\PostDataTable;
 use App\Models\User;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-      /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     function __construct()
     {
-         $this->middleware('permission:post-list|post-create|post-edit|post-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:post-create', ['only' => ['create','store']]);
-         $this->middleware('permission:post-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:post-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:post-list|post-create|post-edit|post-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:post-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:post-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:post-delete', ['only' => ['destroy']]);
     }
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(PostDataTable $dataTable)
-    {        
-        return $dataTable->render('webadmin.posts.index');       
+    {
+        return $dataTable->render('webadmin.posts.index');
     }
 
     /**
@@ -42,9 +43,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {    
-        $users=User::all();    
-        return view('webadmin.posts.create',compact('users'));
+    {
+        $users = User::all();
+        return view('webadmin.posts.create', compact('users'));
     }
 
     /**
@@ -55,18 +56,36 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // dd('hi');
-        $this->validate($request, [
-            'postTitle' => 'required',            
+        // dd($request->all());
+        $valid=$request->validate([
+            'postTitle'  =>  'required',
+            'image' =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required',
         ]);
-    //    dd($request);
-        $post             = new Post();
-        $post->user_id = $request->user_id;
-        $post->postTitle       = $request->name;         
-        $post->save();  
-      
+        // dd($valid);
+        $post = new Post();
+        $post->postTitle = $request->postTitle;
+        $post->description = $request->postDescription;
+        $post->user_id = Auth::id();
+        if ($request->is_commentable == 'on') {
+            $post->is_commentable = Post::ISCOMMENTABLE;
+        } else {
+            $post->is_commentable = Post::ISUNCOMMENTABLE;
+        }
+
+        $post->save();
+        //dd($post->id);
+        $id             = $post->id;
+        $file           = $request->image;
+        $attachment     = Post::find($id);
+        $imageName      = time() . '.' . $request->image->getClientOriginalExtension();
+        $imagestore     = $request->file('image')->storeAs('public/image', $imageName);
+        $file->image    = $imageName;
+        // $attachment->image()->save($file);
+        $attachment->update(['image', $imageName]);
+
         return redirect()->route('webadmin.posts.index')
-                        ->with('success','Post created successfully.');
+            ->with('success', 'Post created successfully.');
     }
 
     /**
@@ -77,7 +96,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('webadmin.posts.show',compact('post'));
+        return view('webadmin.posts.show', compact('post'));
     }
 
     /**
@@ -87,11 +106,11 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
-    {             
-        $users=User::all(); 
+    {
+        $users = User::all();
         $post = Post::find($id);
-         $post['user']=User::all();
-         return view('webadmin.posts.edit',compact('post','users'));
+        $post['user'] = User::all();
+        return view('webadmin.posts.edit', compact('post', 'users'));
     }
 
     /**
@@ -101,20 +120,22 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         // dd($request);
         $this->validate($request, [
-            'postTitle' => 'required',            
+            'postTitle' => 'required',
+            'postDescription' => 'required',
+
         ]);
         $post             = new Post();
         $post->update($request->all());
         $post = Post::find($id);
-        $input        = $request->all();        
-        $post->update($input);      
+        $input        = $request->all();
+        $post->update($input);
 
         return redirect()->route('webadmin.posts.index')
-                        ->with('success','Post updated successfully');
+            ->with('success', 'Post updated successfully');
     }
 
     /**
@@ -127,7 +148,6 @@ class PostController extends Controller
     {
         $post->delete();
         return redirect()->route('webadmin.posts.index')
-                        ->with('success','Post deleted successfully');
+            ->with('success', 'Post deleted successfully');
     }
 }
-

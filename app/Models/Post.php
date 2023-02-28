@@ -9,7 +9,15 @@ class Post extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'user_id',
+        'postTitle', 'user_id', 'description', 'image', 'status',
+    ];
+
+    const ISCOMMENTABLE   = '1';
+    const ISUNCOMMENTABLE  = '0';
+
+    public static $is_commentable = [
+        Self::ISCOMMENTABLE   => 'IsCommentable',
+        Self::ISUNCOMMENTABLE => 'IsUnCommentable'
     ];
 
     public function user()

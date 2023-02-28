@@ -75,7 +75,11 @@ class PostDataTable extends BaseDataTable
     {
         return [
             Column::make('postTitle')
-                    ->width(730),               
+                    ->width(200),
+            Column::make('image')
+                    ->width(200), 
+            Column::make('description')
+                    ->width(250),              
         ];  
     }
 
