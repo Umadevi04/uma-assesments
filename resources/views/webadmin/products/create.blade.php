@@ -14,16 +14,29 @@
                             <div class="form-group">
                                 <label for="exampleInputName">Name</label>
                                 {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control', 'id' => 'exampleInputName']) !!}
+                            </div>                      
+                            <div class="form-group">
+                                <label for="exampleInputName">Detail</label>
+                                {!! Form::text('detail', null, ['placeholder' => 'Detail', 'class' => 'form-control', 'id' => 'exampleInputDetail']) !!}
+                            </div> 
+                            <div class="form-group">
+                                <label>Select Category</label>
+                                <select name="category_id" id="category" class="form-control">
+                                    <option value="">Select Category</option>
+                                    @foreach ($categories as $key => $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>                               
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputDetail">Detail</label>
-                                {!! Form::textarea('detail', null, [
-                                    'placeholder' => 'Detail',
-                                    'class' => 'form-control',
-                                    'id' => 'exampleInputDetail',
-                                ]) !!}
+                                <label>Select Sub-Category</label>
+                                <select name="subcategory_id" id="subcategory" class="form-control">
+                                    <option value="">Select Sub-Category</option>
+                                    {{-- @foreach ($subcategories as $key => $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach --}}
+                                </select>                               
                             </div>
-
                         </div>
                     </div>
                     <div class="card-footer">
@@ -36,3 +49,4 @@
         </div>
     </div>
 @endsection
+

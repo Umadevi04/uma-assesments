@@ -7,6 +7,10 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -47,9 +51,8 @@ Route::group(['prefix' => 'webadmin'], function () {
         Auth::routes();
         Route::get('register', [RegisterController::class,'showRegistrationForm'])->name('register');
         Route::post('register', [RegisterController::class,'register'])->name('create');
-
         Route::middleware('auth')->group(function () {
-             Route::get('logout', [LoginController::class,'logout'])->name('logout');
+             //Route::get('logout', [LoginController::class,'logout'])->name('logout');
 
              Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
 
@@ -60,6 +63,16 @@ Route::group(['prefix' => 'webadmin'], function () {
             Route::resource('users', UserController::class);
             Route::resource('products', ProductController::class);
             Route::resource('permissions', PermissionController::class);
+            Route::resource('categories', CategoryController::class);
+            Route::resource('subcategories', SubCategoryController::class); 
+            Route::resource('posts', PostController::class);  
+            Route::resource('comments', CommentController::class);    
+
         });
+        Route::post('products/get_subcat', [ProductController::class,'getsublist']);        
+        Route::post('comments/get_post', [CommentController::class,'getpost']);
+        Route::post('comments/get_user', [CommentController::class,'getuser']);
+        Route::get('/posts/{post_id}/comments', 'PostsController@show');
     });
+   
 });

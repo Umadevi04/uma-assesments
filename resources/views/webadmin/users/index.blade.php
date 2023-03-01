@@ -1,7 +1,6 @@
 @extends('webadmin.layouts.admin_layout')
 @section('content')
     <div class="content-wrapper">
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">

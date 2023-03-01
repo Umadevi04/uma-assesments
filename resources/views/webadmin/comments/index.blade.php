@@ -6,13 +6,13 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Products-Index</h3>
+                            <h3 class="card-title">Comments-Index</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="pull-right">
-                                <a class="btn btn-sm btn-success" href="{{ route('webadmin.products.create') }}"> Create New
-                                    Product</a>
+                                <a class="btn btn-sm btn-success" href="{{ route('webadmin.comments.create') }}"> Create New
+                                    Comment</a>
                             </div>
                             {{-- <div class="widget-body clearfix"> --}}
                                 {!! $dataTable->table(['class' => 'table table-striped table-responsive', 'id' => 'datatable-buttons' , 'style' => 'width:100%']) !!}
