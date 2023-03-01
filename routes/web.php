@@ -69,9 +69,10 @@ Route::group(['prefix' => 'webadmin'], function () {
             Route::resource('comments', CommentController::class);    
 
         });
-        Route::post('products/get_subcat', [ProductController::class,'getsublist']);
+        Route::post('products/get_subcat', [ProductController::class,'getsublist']);        
         Route::post('comments/get_post', [CommentController::class,'getpost']);
         Route::post('comments/get_user', [CommentController::class,'getuser']);
+        Route::get('/posts/{post_id}/comments', 'PostsController@show');
     });
    
 });

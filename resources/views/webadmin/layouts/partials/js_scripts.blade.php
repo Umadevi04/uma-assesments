@@ -3,7 +3,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('webadmin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>    
+<script>
     $(document).ready(function() {
         $('#category').on('change', function(e) {
             console.log(e);
@@ -29,12 +29,43 @@
                             .id + '">' + subcategory.name + '</option>');
                     });
                 }
-            });      
-         
+            });
+
+        });
+
+        $('#comment-form').on('click', function (e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url: '/comments',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                // Do something with the response
+                }
+            });
+        });
+        // $('#comment-form').submit(function(e) {
+        //     e.preventDefault();
+        //     var formData = $(this).serialize();
+        //     $.ajax({
+        //         url: '/comments',
+        //         type: 'POST',
+        //         data: formData,
+        //         success: function(response) {
+        //             // Do something with the response
+        //         }
+        //     });
+        // });
+        $.ajax({
+            url: '/posts/{{ $post->id }}/comments',
+            type: 'GET',
+            success: function(response) {
+                $('#comments').html(response);
+            }
         });
     });
 </script>
-
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('webadmin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('webadmin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>

@@ -27,21 +27,13 @@
 
                             <div class="form-group">
                                 <label for="exampleInputDescription"> Post Description </label>
-                                {!! Form::textarea('postDescription', null, [
+                                {!! Form::textarea('description', null, [
                                     'placeholder' => 'Post Description',
                                     'class' => 'form-control',
                                     'id' => 'exampleInputDescription',
                                 ]) !!}
                             </div>
-
-                            {{-- <div class="form-group">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Status</label>
-                                <div class="form-check form-switch ">
-                                    <input class ="form-check-input" type="checkbox" name="active"
-                                        id="flexSwitchCheckDefault" checked data-toggle="toggle" data-on="1"
-                                        data-off="0">
-                                </div>
-                            </div> --}}
+                                                     
                             <div class="form-group">
                                 <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                                     <input type="checkbox" name="is_commentable" class="custom-control-input" id="customSwitch3" data-on="1" data-off="0">

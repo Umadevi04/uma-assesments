@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Models\PostController;
-// use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Arr;
 use App\DataTables\PostDataTable;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -56,36 +54,53 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $valid=$request->validate([
-            'postTitle'  =>  'required',
-            'image' =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'description' => 'required',
-        ]);
-        // dd($valid);
-        $post = new Post();
-        $post->postTitle = $request->postTitle;
-        $post->description = $request->postDescription;
-        $post->user_id = Auth::id();
-        if ($request->is_commentable == 'on') {
-            $post->is_commentable = Post::ISCOMMENTABLE;
-        } else {
-            $post->is_commentable = Post::ISUNCOMMENTABLE;
+        try {
+            //dd($request->all());
+            $valid = $request->validate([
+                'postTitle'  =>  'required',
+                'image' =>  'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'description' => 'required',
+            ]);
+
+            $input = $request->all();
+            if ($request->is_commentable == 'on') {
+                $input['is_commentable'] = Post::ISCOMMENTABLE;
+            } else {
+                $input['is_commentable'] = Post::ISUNCOMMENTABLE;
+            }
+            $input['user_id'] = Auth::id();
+            if ($image = $request->file('image')) {
+                $destinationPath = 'image/';
+                $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+                $image->move($destinationPath, $profileImage);
+                $input['image'] = "$profileImage";
+            }
+
+            Post::create($input);
+
+            return redirect()->route('webadmin.posts.index')
+                ->with('success', 'Post created successfully.');
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            Log::info(print_r($message, 1));
+            var_dump('Exception Message: ' . $message);
+
+            $code = $e->getCode();
+            //var_dump('Exception Code: '. $code);
+
+            $string = $e->__toString();
+            //var_dump('Exception String: '. $string);
+
+            return redirect()->route('webadmin.posts.index')
+                ->with('error', 'Something went wrong');
         }
 
-        $post->save();
-        //dd($post->id);
-        $id             = $post->id;
-        $file           = $request->image;
-        $attachment     = Post::find($id);
-        $imageName      = time() . '.' . $request->image->getClientOriginalExtension();
-        $imagestore     = $request->file('image')->storeAs('public/image', $imageName);
-        $file->image    = $imageName;
-        // $attachment->image()->save($file);
-        $attachment->update(['image', $imageName]);
-
-        return redirect()->route('webadmin.posts.index')
-            ->with('success', 'Post created successfully.');
+        $comment = new Comment;
+        $comment->user_id = Auth::user()->id;
+        $comment->post_id = $request->post_id;
+        $comment->content = $request->content;
+        $comment->save();
+        return response()->json($comment);
     }
 
     /**
@@ -96,7 +111,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('webadmin.posts.show', compact('post'));
+        // dd($post);
+        $comments = Comment::where('post_id',$post->id)->get();
+        return view('webadmin.posts.show', compact('comments','post'));
+        // return view('webadmin.posts.show', compact('post'));
     }
 
     /**
